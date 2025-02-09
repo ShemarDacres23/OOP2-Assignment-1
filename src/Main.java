@@ -64,12 +64,22 @@ class Client {
     private int age;
     Card card;
 
-    // Constructor
+    //Constructor Null
+    public Client()
+    {
+        this.idNum = 0;
+        this.firstName = "";
+        this.lastName = "";
+        this.age = 0;
+        this.card = null;
+    }
+
+    // Parametrized Constructor
     public Client(int idNum, String firstName, String lastName, int age, Card card) {
         this.idNum = idNum;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = Math.max(age, 0); // Prevent negative age
+        this.age = 0;
         this.card = card;
     }
 
@@ -88,7 +98,7 @@ class Client {
         if (age >= 0) {
             this.age = age;
         } else {
-            System.out.println("Invalid age. Must be non-negative.");
+            System.out.println("Invalid age.");
             this.age = 0;
         }
     }
@@ -100,21 +110,33 @@ class Client {
         System.out.println("ID Number: " + getIdNum());
         System.out.println("Name: " + getFirstName() + " " + getLastName());
         System.out.println("Age: " + getAge());
-        getCard().displayCardDetails();
+        if (card != null) {
+            card.displayCardDetails();
+        } else {
+            System.out.println("No card assigned.");
+        }
     }
 
     // Display card details only
     public void displayCardInfoOnly() {
         System.out.println("\nCard Details:");
-        getCard().displayCardDetails();
+        if (card != null) {
+            card.displayCardDetails();
+        } else {
+            System.out.println("No card assigned.");
+        }
     }
 
     // Modify card attributes
     public void modifyCard() {
-        getCard().setStatus(true);
-        getCard().setPin(76657);
-        System.out.println("\nUpdated Card Details:");
-        getCard().displayCardDetails();
+        if (card != null) {
+            getCard().setStatus(true);
+            getCard().setPin(76657);
+            System.out.println("\nUpdated Card Details:");
+            card.displayCardDetails();
+        } else {
+            System.out.println("No card assigned.");
+        }
     }
 }
 
@@ -124,7 +146,13 @@ class Card {
     private int pin;
     private boolean status;
 
-    // Constructor
+    public Card() {
+        this.cardNumber = 0;
+        this.balance = 0;
+        this.pin = 0;
+        this.status = false;
+    }
+    // Parameterized Constructor
     public Card(int cardNumber, double balance, int pin, boolean status) {
         this.cardNumber = cardNumber;
         this.balance = balance;
